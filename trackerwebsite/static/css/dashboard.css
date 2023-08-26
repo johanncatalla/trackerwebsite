@@ -1,3 +1,11 @@
+input {
+  margin-bottom: 20px;
+}
+
+.btn-no-margin {
+  margin: 0px;
+}
+
 .row {
   display: flex;
 }
