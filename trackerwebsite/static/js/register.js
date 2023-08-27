@@ -7,6 +7,25 @@ const usernameSuccessOutput = document.querySelector(".usernameSuccessOutput");
 const showPasswordToggle = document.querySelector(".showPasswordToggle");
 const submitBtn = document.querySelector(".submit-btn")
 
+// Verify on page load if credentials remain in input
+if ((usernameField.value.length==0) && (emailField.value.length==0)) {
+    submitBtn.disabled = true;
+} else {
+    submitBtn.removeAttribute('disabled')
+}
+
+// Form Validity Status
+var usernameIsValid = false;
+var emailIsvalid = false;
+
+function verify() {
+    if (usernameIsValid && emailIsvalid) {
+        submitBtn.removeAttribute('disabled')
+    } else {
+        submitBtn.disabled = true;
+    }
+}
+
 const handleToggleInput=(e)=>{
     if (showPasswordToggle.textContent=="SHOW") {
         showPasswordToggle.textContent = "HIDE";
@@ -26,7 +45,7 @@ usernameField.addEventListener('keyup', (e) => {
     usernameField.classList.remove("is-invalid");
     feedBackArea.style.display="none";
 
-    if (usernameVal.length>0) {
+    if (usernameVal.length>=0) {
         fetch("/authentication/validate-username", {
             body:JSON.stringify({ username: usernameVal }), 
             method: "POST",
@@ -38,9 +57,17 @@ usernameField.addEventListener('keyup', (e) => {
                     usernameField.classList.add("is-invalid");
                     feedBackArea.style.display="block";
                     feedBackArea.innerHTML=`<p>${data.username_error}<\p>`;
-                    submitBtn.disabled = true;
+                    usernameIsValid = false;
+                    verify();
+                } else if (data.length_error) {
+                    usernameField.classList.add("is-invalid");
+                    feedBackArea.style.display="block";
+                    feedBackArea.innerHTML=`<p>${data.length_error}<\p>`;
+                    usernameIsValid = false;
+                    verify();
                 } else {
-                    submitBtn.removeAttribute("disabled");
+                    usernameIsValid = true;
+                    verify();
                 }
             });
     }
@@ -52,7 +79,7 @@ emailField.addEventListener('keyup', (e) => {
     emailField.classList.remove("is-invalid");
     EmailfeedBackArea.style.display="none";
 
-    if (emailVal.length>0) {
+    if (emailVal.length>=0) {
         fetch("/authentication/validate-email", {
             body:JSON.stringify({ email: emailVal }), 
             method: "POST",
@@ -61,12 +88,14 @@ emailField.addEventListener('keyup', (e) => {
             .then((data) => {
                 console.log("data", data);
                 if (data.email_error){
-                    submitBtn.disabled = true;
                     emailField.classList.add("is-invalid");
                     EmailfeedBackArea.style.display="block";
                     EmailfeedBackArea.innerHTML=`<p>${data.email_error}<\p>`
+                    emailIsvalid = false;
+                    verify()
                 } else {
-                    submitBtn.removeAttribute("disabled");
+                    emailIsvalid = true;
+                    verify()
                 }
             });
     }
