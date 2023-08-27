@@ -12,6 +12,8 @@ class EmailValidationView(View):
         data = json.loads(request.body)
         email = data['email']
 
+        if len(email) == 0:
+            return JsonResponse({'length_error': 'field required'}, status=400)
         if not validate_email(email):
             return JsonResponse({'email_error': 'email is invalid'}, status=400)
         if User.objects.filter(email=email).exists():

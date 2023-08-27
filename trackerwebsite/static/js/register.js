@@ -93,6 +93,12 @@ emailField.addEventListener('keyup', (e) => {
                     EmailfeedBackArea.innerHTML=`<p>${data.email_error}<\p>`
                     emailIsvalid = false;
                     verify()
+                } else if (data.length_error) {
+                    emailField.classList.add("is-invalid");
+                    EmailfeedBackArea.style.display="block";
+                    EmailfeedBackArea.innerHTML=`<p>${data.length_error}<\p>`;
+                    emailIsvalid = false;
+                    verify();
                 } else {
                     emailIsvalid = true;
                     verify()
