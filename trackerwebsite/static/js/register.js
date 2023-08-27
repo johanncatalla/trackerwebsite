@@ -5,6 +5,7 @@ const EmailfeedBackArea = document.querySelector(".EmailFeedBackArea");
 const passwordField = document.querySelector("#passwordField")
 const usernameSuccessOutput = document.querySelector(".usernameSuccessOutput");
 const showPasswordToggle = document.querySelector(".showPasswordToggle");
+const submitBtn = document.querySelector(".submit-btn")
 
 const handleToggleInput=(e)=>{
     if (showPasswordToggle.textContent=="SHOW") {
@@ -21,8 +22,7 @@ showPasswordToggle.addEventListener('click', handleToggleInput)
 usernameField.addEventListener('keyup', (e) => {
     const usernameVal=e.target.value;
     usernameSuccessOutput.style.display="block";
-    usernameSuccessOutput.textContent=`Checking ${usernameVal}`;
-
+    
     usernameField.classList.remove("is-invalid");
     feedBackArea.style.display="none";
 
@@ -33,12 +33,14 @@ usernameField.addEventListener('keyup', (e) => {
         })
             .then(res=>res.json())
             .then((data) => {
-                console.log("data", data);
                 usernameSuccessOutput.style.display="none";
                 if (data.username_error){
                     usernameField.classList.add("is-invalid");
                     feedBackArea.style.display="block";
-                    feedBackArea.innerHTML=`<p>${data.username_error}<\p>`
+                    feedBackArea.innerHTML=`<p>${data.username_error}<\p>`;
+                    submitBtn.disabled = true;
+                } else {
+                    submitBtn.removeAttribute("disabled");
                 }
             });
     }
@@ -59,9 +61,12 @@ emailField.addEventListener('keyup', (e) => {
             .then((data) => {
                 console.log("data", data);
                 if (data.email_error){
+                    submitBtn.disabled = true;
                     emailField.classList.add("is-invalid");
                     EmailfeedBackArea.style.display="block";
                     EmailfeedBackArea.innerHTML=`<p>${data.email_error}<\p>`
+                } else {
+                    submitBtn.removeAttribute("disabled");
                 }
             });
     }
