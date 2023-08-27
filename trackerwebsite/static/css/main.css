@@ -12,3 +12,29 @@
       font-size: 3.5rem;
     }
   }
+
+input {
+  margin-bottom: 20px;
+}
+
+.btn-no-margin {
+  width: 100%;
+  margin: 0px;
+}
+  
+.showPasswordToggle {
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all;
+
+}.showPasswordToggle:hover {
+  transform: scale(1.1);
+}
+
+.password-form-group {
+  position: relative; 
+}
+
+.password-input {
+  margin-bottom: 0;
+}

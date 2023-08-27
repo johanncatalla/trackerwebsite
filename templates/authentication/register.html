@@ -10,7 +10,8 @@
             <h4>Register for a free account</h4>
           </div>
           <form action="" method="post">
-            <div clas="form group">
+            {% include 'partials/_messages.html' %}
+            <div clas="form-group">
               <input 
                 type="text" 
                 name="username" 
@@ -19,10 +20,10 @@
                 class="form-control form-control-sm" />
             </div>
             <div class="invalid_feedback invalid-feedback", style="display:none">
-              
+    
             </div>
             <div class="text-sm text-success usernameSuccessOutput"></div>
-            <div clas="form group">
+            <div clas="form-group">
               <input 
                 type="email" 
                 name="email" 
@@ -31,18 +32,18 @@
                 class="form-control form-control-sm" />
             </div>
             <div class="EmailFeedBackArea invalid-feedback", style="display:none"></div>
-            <div clas="form group">
+            <div clas="form-grou password-form-group">
               <input 
                 type="password" 
                 name="password" 
                 placeholder="password" 
                 id="passwordField" 
-                class="form-control form-control-sm" />
-              <small class="float-end py-2">SHOW</small>
+                class="form-control form-control-sm password-input" />
+                <small class="float-end py-2 showPasswordToggle">SHOW</small>
             </div>
+            <input type="submit" value="Register" class="btn btn-block btn-primary btn-no-margin" />
           </form>
         </div>
-        <input type="submit" value="Register" class="btn btn-block btn-primary btn-no-margin" />
       </div>
     </div>
     <div class="col-md-4"></div>
