@@ -10,6 +10,7 @@ python-dotenv = "*"
 waitress = "*"
 render = "*"
 validate-email = "*"
+six = "*"
 
 [dev-packages]
 
