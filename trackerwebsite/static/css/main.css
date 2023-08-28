@@ -38,3 +38,9 @@ input {
 .password-input {
   margin-bottom: 0;
 }
+
+/* Currency */
+
+.selection {
+  width: 30%;
+}
